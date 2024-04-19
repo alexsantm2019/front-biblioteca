@@ -1,0 +1,32 @@
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
+    <img src="./assets/img/logos/logo.png" class="img-thumbnail" width="335" height="365" />
+    <div class="mt-3">
+        <div class="card shadow p-2" style="width: 20rem">
+            <h3 class="card-title text-center"><b>Bienvenido!</b></h3>
+            <div class="card-body">
+                <form [formGroup]="inicioForm" novalidate (submit)="logueo($event)">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-left">Cédula</label>
+                            <input formControlName="cedula" [ngClass]="{
+'is-invalid':
+hasErrors('cedula', 'required') ||
+hasErrors('cedula', 'minlength')
+}" maxlength="10" type="text" placeholder="Ingrese su número de cédula" class="form-control" id="cedula" aria-describedby="cedulaHelp" />
+                            <span *ngIf="hasErrors('cedula', 'required')" class="text-danger">Cédula es un campo requerido</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block w-100 mt-5" type="submit">
+            Loguear
+          </button>
+                    <button routerLink="registro" class="btn btn-secondary btn-block w-100 mt-2">
+            Registrarse
+          </button>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
