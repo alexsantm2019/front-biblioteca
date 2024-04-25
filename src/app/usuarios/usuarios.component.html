@@ -1,0 +1,77 @@
+<div class="container d-flex flex-column align-items-center justify-content-center p-3">
+    <h1>Lista de usuarios</h1>
+
+    <div *ngIf="usuarios.length > 0 else nousuarios">
+
+        <div class="table-responsive-lg p-3">
+            <table class="table table-striped  table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Teléfono</th>
+                        <th>Institución</th>
+                        <th>Género</th>
+                        <th>Nacionalidad</th>
+                        <!-- <th>Etnia</th> -->
+                        <th>¿Posee discapacidad?</th>
+                        <th>¿Desea recibir información?</th>
+                        <th>¿Es superusuario?</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of usuarios">
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.apellido }}</td>
+                        <td>{{ usuario.cedula }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.fecha_nacimiento }}</td>
+                        <td>{{ usuario.telefono }}</td>
+                        <td>{{ usuario.institucion }}</td>
+                        <td>{{ usuario.genero }}</td>
+                        <td>{{ usuario.nacionalidad }}</td>
+                        <!-- <td>{{ usuario.etnia }}</td> -->
+                        <td>{{ usuario.discapacidad }}</td>
+                        <td>{{ usuario.recibir_informacion }}</td>
+                        <td>{{ usuario.es_superusuario }}</td>
+                        <td>
+                            <button type="button" [routerLink]="['/registro']" [queryParams]="{ flag: 'edit', usuario: usuario  | json }" class="btn btn-sm btn-primary mr-1">
+                                Editar
+                            </button>
+                            <button type="button" (click)='eliminarUsuario(usuario.id)' class="btn btn-sm btn-secondary">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <ng-template #nousuarios>
+
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">No existen usuarios registrados!</h4>
+            <p>Si no te has registrado, por favor vuelve al menú anterior y haz click en <b>Registrarse</b></p>
+            <hr>
+
+            <div class="text-center">
+                <button routerLink="" class="btn btn-warning" type="submit">
+            Regresar
+          </button>
+            </div>
+
+
+        </div>
+
+
+    </ng-template>
+
+
+
+</div>

@@ -23,20 +23,15 @@ export class UsuariosService {
       return this.http.post<any>(`${this.apiUrl}/buscar_usuario`, cedula);
     }
     
-    // updateData(id: number, updatedData: any): Observable<any> {
-    //   const url = `${this.apiUrl}/${id}`;
-    //   return this.http.put<any>(url, updatedData);
-    // }
+    updateUsuario(id: number, updatedData: any): Observable<any> {
+      const url = `${this.apiUrl}/editar_usuario/${id}`;
+      return this.http.put<any>(url, updatedData);
+    }
     
-    // patchData(id: number, updatedData: any): Observable<any> {
-    //   const url = `${this.apiUrl}/${id}`;
-    //   return this.http.patch<any>(url, updatedData);
-    // }
-    
-    // deleteData(id: number): Observable<any> {
-    //   const url = `${this.apiUrl}/${id}`;
-    //   return this.http.delete<any>(url);
-    // }
+    eliminarUsuario(id: number): Observable<any> {
+      const url = `${this.apiUrl}/eliminar_usuario/${id}`;
+      return this.http.delete<any>(url);
+    }
 
 
 

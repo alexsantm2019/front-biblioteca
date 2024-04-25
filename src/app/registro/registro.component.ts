@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 // import {UsuariosInterface} from '../models/usuarios.model';
 // import { Observable } from 'rxjs';
 // import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { UsuariosService } from '../services/usuarios/usuarios-services.service'
@@ -19,14 +19,20 @@ export class RegistroComponent  implements OnInit{
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-  generos = ['Hombre', 'Mujer'];
+  listaSuperUsuario = [{key:0, value:'No'}, {key:1, value:'Si'}];  
+  generos = ['Hombre', 'Mujer'];    
   nacionalidades = ['Local', 'Nacional', 'Extranjero'];
   etnias = ['Mestiza', 'Blanca', 'Indígena', 'Afroecuatoriana', 'Montubia', 'Otra'];
   opciones = ['Sí', 'No'];
 
   usuarioForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  flag:any;  
+  public usuarioEdit: any;
+  public usuarioIdEdit: any;
+
+
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.usuarioForm = this.formBuilder.group({
       cedula: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       nombre: ['', [Validators.required]],
@@ -40,12 +46,46 @@ export class RegistroComponent  implements OnInit{
       etnia: ['', [Validators.required]],      
       discapacidad: ['', [Validators.required]],      
       recibir_informacion: ['', [Validators.required]],      
+      es_superusuario: [''],      
     })
   }
     get f() { return this.usuarioForm.controls; }
 
     ngOnInit():void{
 
+      this.route.queryParams.subscribe(params => {
+        this.flag = params['flag'];
+        if(this.flag ==='edit'){
+          this.usuarioEdit = JSON.parse(params['usuario']);
+          console.log("Datos de usurio EDIT (1): "+ JSON.stringify(this.usuarioEdit) )
+          
+          const generoSeleccionado = this.generos.includes(this.usuarioEdit.genero) ? this.usuarioEdit.genero : null;          
+          const nacionalidadSeleccionada = this.nacionalidades.includes(this.usuarioEdit.nacionalidad) ? this.usuarioEdit.nacionalidad : null;
+          const etniaSeleccionada = this.etnias.includes(this.usuarioEdit.etnia) ? this.usuarioEdit.etnia : null;
+          const discapacidadSeleccionada = this.opciones.includes(this.usuarioEdit.discapacidad) ? this.usuarioEdit.discapacidad : null;
+          const poseeInformacionSeleccionada = this.opciones.includes(this.usuarioEdit.recibir_informacion) ? this.usuarioEdit.recibir_informacion : null;          
+          const opcionSuperusuarioSeleccionada = this.listaSuperUsuario.find(opcion => opcion.key === this.usuarioEdit.es_superusuario);
+
+          setTimeout(() => {
+            this.usuarioIdEdit = this.usuarioEdit.id;
+            this.usuarioForm.patchValue({
+              cedula: this.usuarioEdit.cedula,
+              nombre: this.usuarioEdit.nombre,
+              apellido: this.usuarioEdit.apellido,
+              fecha_nacimiento: this.usuarioEdit.fecha_nacimiento,
+              genero: generoSeleccionado,
+              telefono: this.usuarioEdit.telefono,
+              correo: this.usuarioEdit.correo,
+              nacionalidad: nacionalidadSeleccionada,
+              institucion: this.usuarioEdit.institucion,
+              etnia: etniaSeleccionada,
+              discapacidad: discapacidadSeleccionada,
+              recibir_informacion: poseeInformacionSeleccionada,
+              es_superusuario: opcionSuperusuarioSeleccionada!.key
+            });
+        }, 250);         
+        } 
+      });
     } 
     registrar(event: Event) {
       event.preventDefault(); // Evitar que se envíe el formulario
@@ -75,21 +115,30 @@ export class RegistroComponent  implements OnInit{
       this.usuariosService.crearUsuario(this.usuarioForm.value)
       .subscribe(
         response => {
-          // console.log('Usuario registrado correctamente:', response);
-          // Aquí puedes realizar cualquier acción adicional después de registrar el usuario
-          this.showSuccess();
+          this.showSuccess("Usuario creado correctamente");
           this.router.navigate(['']);
         },
         error => {
           console.error('Error al registrar usuario:', error);
-          // Aquí puedes manejar cualquier error que ocurra durante el registro del usuario
         }
       );
     }
 
-
-    showSuccess() {
-      this.toastr.success('Has sido registrado correctamente', 'Éxito!');
+    editarUsuario(event: Event): void {
+      event.preventDefault(); 
+      this.usuariosService.updateUsuario(this.usuarioIdEdit, this.usuarioForm.value)
+      .subscribe(
+        response => {
+          this.showSuccess("Usuario actualizado correctamente");
+          this.router.navigate(['/usuarios']);
+        },
+        error => {
+          console.error('Error al registrar usuario:', error);
+        }
+      );
+    }
+    showSuccess(msg:any) {
+      this.toastr.success(msg, 'Éxito!');
     }
     showError() {
       this.toastr.error('No se pudo registrar correctamente. Por favor inténtalo de nuevo', 'Error!');

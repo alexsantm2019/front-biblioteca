@@ -62,24 +62,6 @@ export class InicioComponent  implements OnInit{
       console.log('Formulario inválido. Revisar los mensajes de validación.');
     }
   }
-
-  // buscarUsuario(){
-
-  //   let cedula = this.inicioForm.value;
-  //   console.log("Cedula: " + cedula)
-  //   this.usuariosService.buscarUsuario(cedula).subscribe(
-  //     (data) => {
-  //       console.log("Status: " + JSON.stringify(data))
-  //       resolve(data);       
-  //     },
-  //     (error) => {
-  //       // Manejar errores
-  //       this.showError();
-  //       console.error('Error en la autenticación:', error);
-  //     }
-  //   );
-  // }
-
   buscarUsuario(): Observable<any> {
     let cedula = this.inicioForm.value;
     return this.usuariosService.buscarUsuario(cedula).pipe(

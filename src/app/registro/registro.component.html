@@ -3,7 +3,21 @@
         <div class="mt-3">
             <div class="card shadow p-2" style="width: 40rem">
                 <h3 class="card-title text-center"><b>Bienvenido!</b></h3>
+
+                <div *ngIf="flag ==='edit'">
+                    <h3 class="card-title text-center">Edición de usuario</h3>
+                </div>
+
+
                 <div class="card-body">
+
+                    <!-- DATOS -->
+                    <!-- <h1>{{flag}}</h1> -->
+                    <!-- <h1>{{usuarioEdit}}</h1> -->
+
+
+
+                    <!-- FIN DATOS -->
                     <form [formGroup]="usuarioForm" novalidate (submit)="registrar($event)">
                         <div class="row">
 
@@ -102,7 +116,7 @@ class="text-danger"
                                 <div class="form-group">
                                     <label for="exampleInputEmail1" class="text-left">Nacionalidad</label
   >
-  <input
+  <!-- <input
     formControlName="nacionalidad"
     [ngClass]="{
       'is-invalid': hasErrors('nacionalidad', 'required')
@@ -113,7 +127,15 @@ class="text-danger"
     class="form-control"
     id="nacionalidad"
     aria-describedby="nacionalidadHelp"
-  />
+  /> -->
+
+  <select formControlName="nacionalidad" 
+  [ngClass]="{ 'is-invalid': hasErrors('nacionalidad', 'required') }" class="form-control" id="nacionalidad">
+    <option value="">- Seleccionar nacionalidad -</option>
+    <option *ngFor="let nacionalidad of nacionalidades">{{ nacionalidad }}</option>
+  </select>
+
+
   <span
   *ngIf="hasErrors('nacionalidad', 'required')"
   class="text-danger"
@@ -191,21 +213,43 @@ class="text-danger"
   </div>
 </div>
 
+<div class="col-lg-6" *ngIf="flag ==='edit'">
+  <div class="form-group">
+    <label for="exampleInputEmail1" class="text-left">Superusuario</label>
+                  <select formControlName="es_superusuario"  id="es_superusuario"                   
+                  class="form-control" id="es_superusuario">
+      <option value="">- Seleccione -</option>
+      <option *ngFor="let opcion of listaSuperUsuario" [value]="opcion.key">{{ opcion.value }}</option>
+    </select>
+  </div>
+</div>
+
 </div>
 
 
 <div class="mt-5 row">
   <div class="col-lg-6">
     <button
+    *ngIf="flag ==='add'"
     routerLink=""
     class="btn btn-secondary btn-block w-100"
   >
     Home
   </button>
+  <button
+  *ngIf="flag ==='edit'"
+  routerLink="/usuarios"
+  class="btn btn-secondary btn-block w-100"
+>
+  Volver
+</button>
   </div>
   <div class="col-lg-6">
-    <button class="btn btn-primary btn-block w-100" type="submit">
+    <button *ngIf="flag ==='add'" class="btn btn-primary btn-block w-100" type="submit">
       Registrarse
+    </button>
+    <button *ngIf="flag ==='edit'" class="btn btn-primary btn-block w-100" (click)="editarUsuario($event)">
+      Actualizar
     </button>
   </div>
   </div>
