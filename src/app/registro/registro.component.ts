@@ -112,6 +112,7 @@ export class RegistroComponent  implements OnInit{
     }
 
     crearUsuario(): void {
+      this.usuarioForm.patchValue({ es_superusuario: 0});
       this.usuariosService.crearUsuario(this.usuarioForm.value)
       .subscribe(
         response => {

@@ -1,0 +1,42 @@
+/* .app-container {
+    min-height: calc(100vh - 100px);
+    position: relative;
+    overflow-y: auto;
+}
+
+.content {
+    padding-bottom: 50px;    
+    overflow: auto;
+}
+
+app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+} */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Establece la altura mínima para ocupar toda la pantalla */
+    position: relative;
+}
+
+.content {
+    flex: 1;
+    /* Hace que el contenido se expanda para llenar el espacio disponible */
+    overflow-y: auto;
+    /* Añade scroll si el contenido es demasiado largo */
+}
+
+app-footer {
+    flex-shrink: 0;
+    /* Evita que el footer se reduzca */
+    position: fixed;
+    /* Fija el footer en la parte inferior de la pantalla */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}

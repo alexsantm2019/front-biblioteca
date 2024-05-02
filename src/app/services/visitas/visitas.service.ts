@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,16 +11,14 @@ export class VisitasService {
 
   constructor(private http:HttpClient) { }
 
+  getVisitas():Observable<any>{
+    return this.http.get(`${this.apiUrl}/get_visitas`);
+  }
   crearVisita(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/crear_visita`, data);
   }
 
-
-
-
-
-
+  reporteMes():Observable<any>{
+    return this.http.get(`${this.apiUrl}/reporte_mes`);
+  }
 }
-
-
-

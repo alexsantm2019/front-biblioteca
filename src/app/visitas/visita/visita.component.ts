@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild, inject} from '@angular/core';
-import { CatalogosService } from '../services/catalogos/catalogos.service'
-import { VisitasService } from '../services/visitas/visitas.service'
+import { CatalogosService } from '../../services/catalogos/catalogos.service'
+import { VisitasService } from '../../services/visitas/visitas.service'
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

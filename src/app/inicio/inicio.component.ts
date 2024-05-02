@@ -28,7 +28,7 @@ export class InicioComponent  implements OnInit{
 
   // constructor(private router: Router){}
 
-    ngOnInit(): void { }
+  ngOnInit(): void { }
 
 
   gotToRegistro(){
@@ -50,9 +50,10 @@ export class InicioComponent  implements OnInit{
     // Verificar si el formulario es válido después de marcar todos los campos como "touched"
     if (this.inicioForm.valid) {
       // Si el formulario es válido, procede con la lógica de registro
-      //console.log('Formulario válido. Proceder con el registro.');
       let infoUser = await this.buscarUsuario().toPromise();
-      console.log("inforUser: " + JSON.stringify(infoUser))
+
+      this.usuariosService.setUsuario(infoUser);
+      
       if(infoUser){
         this.showSuccess()  
         this.router.navigate(['/visita'], { state: { infoUser } });
@@ -72,6 +73,7 @@ export class InicioComponent  implements OnInit{
       catchError(error => {
         console.error('Error en la búsqueda del usuario:', error);
         this.showError();
+        // this.clearInput();
         return throwError(error);
       })
     );
@@ -84,4 +86,7 @@ export class InicioComponent  implements OnInit{
   showError() {
     this.toastr.error('No existe usuario con la cédula proporcionada. Por favor Registrate e inténtalo de nuevo', 'Error!');
   }
+  // clearInput(){
+  //   this.inicioForm.patchValue({ cedula: "" });
+  // }
 }

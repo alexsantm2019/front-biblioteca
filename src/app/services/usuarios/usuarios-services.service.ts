@@ -7,6 +7,11 @@ import { Observable } from 'rxjs';
 export class UsuariosService {
 
   private apiUrl = "http://localhost:8000/usuarios";
+
+
+  usuario: any; // Información del usuario
+  isSuperUsuario: boolean = false; // Estado de superusuario
+
   constructor(private http:HttpClient) { 
     
   }
@@ -31,6 +36,16 @@ export class UsuariosService {
     eliminarUsuario(id: number): Observable<any> {
       const url = `${this.apiUrl}/eliminar_usuario/${id}`;
       return this.http.delete<any>(url);
+    }
+
+    // Inyecto en nav-bar para mostrar el menú en caso de ser SuperAdministrador
+    setUsuario(usuario: any) {
+      this.usuario = usuario;
+      this.isSuperUsuario = usuario.es_superusuario === 1 ? true : false;
+    }
+
+    isLoggedIn() {
+      return this.usuario != null;
     }
 
 
