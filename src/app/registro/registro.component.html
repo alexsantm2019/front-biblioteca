@@ -12,27 +12,24 @@
                 <div class="card-body">
 
                     <!-- DATOS -->
-                    <!-- <h1>{{flag}}</h1> -->
-                    <!-- <h1>{{usuarioEdit}}</h1> -->
-
-
 
                     <!-- FIN DATOS -->
                     <form [formGroup]="usuarioForm" novalidate (submit)="registrar($event)">
                         <div class="row">
-
+                            <!-- (blur)="onBlurValidarCedula()"  -->
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1" class="text-left">Cédula</label>
                                     <input formControlName="cedula" [ngClass]="{
           'is-invalid':
             hasErrors('cedula', 'required') ||
-            hasErrors('cedula', 'minlength')
+            hasErrors('cedula', 'minlength') ||
+            hasErrors('cedula', 'cedulaInvalida')
         }" maxlength="10" type="number" placeholder="Ingrese su número de cédula" class="form-control" id="cedula" aria-describedby="cedulaHelp" />
-                                    <!-- @if (hasErrors('cedula', 'required')) {
-<span class="text-danger">You have to complete this field</span> 
-} -->
+
                                     <span *ngIf="hasErrors('cedula', 'required')" class="text-danger">Cédula es un campo requerido</span>
+                                    <span *ngIf="hasErrors('cedula', 'cedulaInvalida')" class="text-danger">Cédula ingresada es incorrecta</span>
+
                                 </div>
                             </div>
                             <div class="col-lg-6">

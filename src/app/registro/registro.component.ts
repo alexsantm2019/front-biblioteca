@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 // import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute  } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { cedulaValidator } from './cedula-validator';
 import { UsuariosService } from '../services/usuarios/usuarios-services.service'
 @Component({
   selector: 'app-registro',
@@ -30,11 +30,13 @@ export class RegistroComponent  implements OnInit{
   flag:any;  
   public usuarioEdit: any;
   public usuarioIdEdit: any;
-
+  
+  public cedula: string = '';
+  public verificarCedula: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.usuarioForm = this.formBuilder.group({
-      cedula: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      cedula: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), cedulaValidator()]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
@@ -56,8 +58,7 @@ export class RegistroComponent  implements OnInit{
       this.route.queryParams.subscribe(params => {
         this.flag = params['flag'];
         if(this.flag ==='edit'){
-          this.usuarioEdit = JSON.parse(params['usuario']);
-          console.log("Datos de usurio EDIT (1): "+ JSON.stringify(this.usuarioEdit) )
+          this.usuarioEdit = JSON.parse(params['usuario']);          
           
           const generoSeleccionado = this.generos.includes(this.usuarioEdit.genero) ? this.usuarioEdit.genero : null;          
           const nacionalidadSeleccionada = this.nacionalidades.includes(this.usuarioEdit.nacionalidad) ? this.usuarioEdit.nacionalidad : null;
@@ -102,8 +103,8 @@ export class RegistroComponent  implements OnInit{
 
         this.crearUsuario();
       } else {
-        // Si el formulario no es válido, se mostrarán automáticamente los mensajes de validación
-        console.log('Formulario inválido. Revisar los mensajes de validación.');
+        // Si el formulario no es válido, se mostrarán automáticamente los mensajes de validación        
+        this.showError('Formulario inválido. Por favor revisa los mensajes de validación e inténtalo de nuevo')
       }
     }
 
@@ -120,7 +121,10 @@ export class RegistroComponent  implements OnInit{
           this.router.navigate(['']);
         },
         error => {
-          console.error('Error al registrar usuario:', error);
+          console.log('ERROR', error.error.cedula);
+          let mensajeError = error.error.cedula.toString()
+          this.showError(mensajeError)
+          console.error('Error al registrar usuario:', error.error);
         }
       );
     }
@@ -141,7 +145,49 @@ export class RegistroComponent  implements OnInit{
     showSuccess(msg:any) {
       this.toastr.success(msg, 'Éxito!');
     }
-    showError() {
-      this.toastr.error('No se pudo registrar correctamente. Por favor inténtalo de nuevo', 'Error!');
+    showError(msg:any) {
+      this.toastr.error(msg, 'Error!');
     }
+
+    // onBlurValidarCedula(){
+    //   let cedula = this.cedula;
+    //   if(cedula) {
+    //     this.verificarCedula = this.validadorDeCedula(cedula)
+
+    //     if (this.verificarCedula) this.showSuccess("Cédula ingresada correctamente")
+    //     else  this.showError("Cédula ingresada incorrectamente");
+    //   }      
+    // }
+    // validadorDeCedula(cedulaEnviada:string): boolean {      
+    //   let cedulaCorrecta = false;
+    //   let cedula = String(cedulaEnviada);
+    //   if (String(cedula).length == 10)
+    //   {    
+    //       let tercerDigito = parseInt(cedula.substring(2, 3));
+    //       if (tercerDigito < 6) {
+    //           // El ultimo digito se lo considera dígito verificador
+    //           let coefValCedula = [2, 1, 2, 1, 2, 1, 2, 1, 2];       
+    //           let verificador = parseInt(cedula.substring(9, 10));
+    //           let suma:number = 0;
+    //           let digito:number = 0;
+    //           for (let i = 0; i < (cedula.length - 1); i++) {
+    //               digito = parseInt(cedula.substring(i, i + 1)) * coefValCedula[i];      
+    //               suma += ((parseInt((digito % 10)+'') + (parseInt((digito / 10)+''))));
+    //           }
+    //           suma= Math.round(suma);
+    //           if ((Math.round(suma % 10) == 0) && (Math.round(suma % 10)== verificador)) {
+    //               cedulaCorrecta = true;
+    //           } else if ((10 - (Math.round(suma % 10))) == verificador) {
+    //               cedulaCorrecta = true;
+    //           } else {
+    //               cedulaCorrecta = false;
+    //           }
+    //       } else {
+    //           cedulaCorrecta = false;
+    //       }
+    //   } else {
+    //       cedulaCorrecta = false;
+    //   }
+    //   return cedulaCorrecta;
+    // }
 }

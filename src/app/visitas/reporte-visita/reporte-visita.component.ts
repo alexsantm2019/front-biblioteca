@@ -4,16 +4,19 @@ import { VisitasService } from '../../services/visitas/visitas.service'
 import { VisitasInterface } from './../../models/visitas.model'
 import { take, first } from 'rxjs/operators';
 import { FilterByNamePipe } from '../../pipes/filter-by-name.pipe';
+import { TimezonePipe } from '../../pipes/timezone/timezone.pipe';
+// import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reporte-visita',
   templateUrl: './reporte-visita.component.html',
-  styleUrl: './reporte-visita.component.css'
+  styleUrl: './reporte-visita.component.css',
+  providers: [FilterByNamePipe, TimezonePipe]   // Importo Pipe
 })
 export class ReporteVisitaComponent  implements OnInit{
 
   private visitasService = inject(VisitasService);
-  private filterByNamePipe = inject(FilterByNamePipe);
+  // private datePipe= inject(DatePipe);
 
   visitas: VisitasInterface[] = [];
   searchText = '';
@@ -49,10 +52,13 @@ export class ReporteVisitaComponent  implements OnInit{
     return Array.from(Array(pageCount), (_, i) => i + 1);
   }
 
-  filterByName() {
-    console.log("Filtrando por pipes...")
-    this.visitas = this.filterByNamePipe.transform(this.visitas, this.searchText);
-  }
+  // obtenerZonaHorariaLocal(): string {
+  //   return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  // }
+
+  // obtenerFechaFormateada(fecha: string): string {
+  //   return this.datePipe.transform(fecha, 'yyyy-MM-dd HH:mm:ss');
+  // }
 
 }
 

@@ -1,0 +1,47 @@
+.table th.nombre {
+    width: 200px;
+}
+
+.table th.cedula {
+    width: 50px !important;
+}
+
+.table th.correo {
+    width: 100px;
+}
+
+.table th.fecha-nacimiento {
+    width: 75px;
+}
+
+.table th.telefono {
+    width: 75px;
+}
+
+.table th.institucion {
+    width: 100px;
+}
+
+.table th.genero {
+    width: 50px;
+}
+
+.table th.nacionalidad {
+    width: 50px;
+}
+
+.table th.discapacidad {
+    width: 50px;
+}
+
+.table th.recibir-informacion {
+    width: 50px;
+}
+
+.table th.superusuario {
+    width: 50px;
+}
+
+.table th.acciones {
+    width: 50px;
+}

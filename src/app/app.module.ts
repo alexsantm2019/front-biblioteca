@@ -19,6 +19,7 @@ import { ReporteVisitaComponent } from './visitas/reporte-visita/reporte-visita.
 import { FilterByNamePipe } from './pipes/filter-by-name.pipe';
 import { ReporteMesComponent } from './visitas/reporte-mes/reporte-mes.component';
 import { FormsModule } from '@angular/forms';
+import { TimezonePipe } from './pipes/timezone/timezone.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FormsModule } from '@angular/forms';
     ReporteVisitaComponent,
     FilterByNamePipe,
     ReporteMesComponent,
+    TimezonePipe,
   ],
   imports: [
     FormsModule,
