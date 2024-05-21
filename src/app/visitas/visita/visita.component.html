@@ -19,10 +19,12 @@
                         <hr>
                         <form [formGroup]="visitaForm" novalidate (submit)="registrarVisita($event)">
                             <div class="form-group">
-
                                 <div *ngFor="let item of catalogos">
+                                    <!-- <input type="radio" name="catalogoId" [value]="item.id" formControlName="catalogoId" [ngClass]="{ 'is-invalid': hasErrors('catalogoId', 'required') }">
+                                    <label class="ml-4"> {{ item.catalogo }}</label> -->
+
                                     <input type="radio" name="catalogoId" [value]="item.id" formControlName="catalogoId" [ngClass]="{ 'is-invalid': hasErrors('catalogoId', 'required') }">
-                                    <label> {{ item.catalogo }}</label>
+                                    <label class="radio-label"> {{ item.catalogo }}</label>
                                 </div>
                                 <span *ngIf="hasErrors('catalogoId', 'required')" class="text-danger">Catalogo es campo requerido</span>
                             </div>

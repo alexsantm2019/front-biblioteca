@@ -1,16 +1,18 @@
 <div class="container">
-    <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
-        <div class="mt-3">
-            <div class="card shadow p-2" style="width: 40rem">
-                <h3 class="card-title text-center"><b>Bienvenido!</b></h3>
 
-                <div *ngIf="flag ==='edit'">
+    <div class="row d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="col-lg-3">
+            <img src="./assets/img/logos/logo.png" class="img-thumbnail" />
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow p-2">
+
+                <h3 class="card-title text-center"><b>Regístrate</b></h3>
+                <div *ngIf="flag === 'edit'">
                     <h3 class="card-title text-center">Edición de usuario</h3>
                 </div>
 
-
                 <div class="card-body">
-
                     <!-- DATOS -->
 
                     <!-- FIN DATOS -->
@@ -19,240 +21,396 @@
                             <!-- (blur)="onBlurValidarCedula()"  -->
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Cédula</label>
-                                    <input formControlName="cedula" [ngClass]="{
-          'is-invalid':
-            hasErrors('cedula', 'required') ||
-            hasErrors('cedula', 'minlength') ||
-            hasErrors('cedula', 'cedulaInvalida')
-        }" maxlength="10" type="number" placeholder="Ingrese su número de cédula" class="form-control" id="cedula" aria-describedby="cedulaHelp" />
+                                    <label for="exampleInputEmail1" class="text-left">Cédula</label
+                      >
+                      <input
+                        formControlName="cedula"
+                        [ngClass]="{
+                          'is-invalid':
+                            hasErrors('cedula', 'required') ||
+                            hasErrors('cedula', 'minlength') ||
+                            hasErrors('cedula', 'cedulaInvalida')
+                        }"
+                        maxlength="10"
+                        type="number"
+                        placeholder="Ingrese su número de cédula"
+                        class="form-control"
+                        id="cedula"
+                        aria-describedby="cedulaHelp"
+                      />
 
-                                    <span *ngIf="hasErrors('cedula', 'required')" class="text-danger">Cédula es un campo requerido</span>
-                                    <span *ngIf="hasErrors('cedula', 'cedulaInvalida')" class="text-danger">Cédula ingresada es incorrecta</span>
+                      <span
+                        *ngIf="hasErrors('cedula', 'required')"
+                        class="text-danger"
+                        >Cédula es un campo requerido</span
+                      >
+                      <span
+                        *ngIf="hasErrors('cedula', 'cedulaInvalida')"
+                        class="text-danger"
+                        >Cédula ingresada es incorrecta</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Nombre</label
+                      >
+                      <input
+                        formControlName="nombre"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('nombre', 'required')
+                        }"
+                        type="text"
+                        placeholder="Ingrese su nombre completo"
+                        class="form-control"
+                        id="nombre"
+                        aria-describedby="nombreHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('nombre', 'required')"
+                        class="text-danger"
+                        >Nombres es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Apellido</label
+                      >
+                      <input
+                        formControlName="apellido"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('apellido', 'required')
+                        }"
+                        type="text"
+                        placeholder="Ingrese sus apellidos"
+                        class="form-control"
+                        id="apellido"
+                        aria-describedby="apellidoHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('apellido', 'required')"
+                        class="text-danger"
+                        >Apellidos es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Fecha de nacimiento</label
+                      >
+                      <input
+                        formControlName="fecha_nacimiento"
+                        [ngClass]="{
+                          'is-invalid': hasErrors(
+                            'fecha_nacimiento',
+                            'required'
+                          )
+                        }"
+                        type="date"
+                        placeholder="Ingrese su fecha de nacimiento"
+                        class="form-control"
+                        id="fecha_nacimiento"
+                        aria-describedby="fecha_nacimientoHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('fecha_nacimiento', 'required')"
+                        class="text-danger"
+                        >Fecha de nacimiento es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Género</label
+                      >
+                      <select
+                        formControlName="genero"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('genero', 'required')
+                        }"
+                        class="form-control"
+                        id="genero"
+                      >
+                        <option value="">- Seleccionar género -</option>
+                        <option *ngFor="let genero of generos">
+                          {{ genero }}
+                        </option>
+                      </select>
+                      <span
+                        *ngIf="hasErrors('genero', 'required')"
+                        class="text-danger"
+                        >Género es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Teléfono</label
+                      >
+                      <input
+                        maxlength="10"
+                        formControlName="telefono"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('telefono', 'required')
+                        }"
+                        type="number"
+                        placeholder="Ingrese su teléfono"
+                        class="form-control"
+                        id="telefono"
+                        aria-describedby="telefonoHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('telefono', 'required')"
+                        class="text-danger"
+                        >Género es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Correo</label
+                      >
+                      <input
+                        formControlName="correo"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('correo', 'required')
+                        }"
+                        type="email"
+                        placeholder="Ingrese su correo electrónico"
+                        class="form-control"
+                        id="correo"
+                        aria-describedby="correoHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('correo', 'required')"
+                        class="text-danger"
+                        >Correo es campo requerido</span
+                      >
+                      <span
+                        *ngIf="hasErrors('correo', 'email')"
+                        class="text-danger"
+                        >Formato de correo inválido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Nacionalidad</label
+                      >
+                      <!-- <input
+        formControlName="nacionalidad"
+        [ngClass]="{
+          'is-invalid': hasErrors('nacionalidad', 'required')
+        }"
+        type="text"
+        maxlength="30"
+        placeholder="Ingrese su correo electrónico"
+        class="form-control"
+        id="nacionalidad"
+        aria-describedby="nacionalidadHelp"
+      /> -->
 
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Nombre</label>
-                                    <input formControlName="nombre" [ngClass]="{ 'is-invalid': hasErrors('nombre', 'required') }" type="text" placeholder="Ingrese su nombre completo" class="form-control" id="nombre" aria-describedby="nombreHelp" />
-                                    <span *ngIf="hasErrors('nombre', 'required')" class="text-danger">Nombres es campo requerido</span
->
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Apellido</label>
-                                    <input formControlName="apellido" [ngClass]="{ 'is-invalid': hasErrors('apellido', 'required') }" type="text" placeholder="Ingrese sus apellidos" class="form-control" id="apellido" aria-describedby="apellidoHelp" />
-                                    <span *ngIf="hasErrors('apellido', 'required')" class="text-danger">Apellidos es campo requerido</span
-    >
-  </div>
-</div>
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">Fecha de nacimiento</label
->
-<input
-formControlName="fecha_nacimiento"
-[ngClass]="{
-'is-invalid': hasErrors('fecha_nacimiento', 'required')
-}"
-type="date"
-placeholder="Ingrese su fecha de nacimiento"
-class="form-control"
-id="fecha_nacimiento"
-aria-describedby="fecha_nacimientoHelp"
-/>
-<span
-*ngIf="hasErrors('fecha_nacimiento', 'required')"
-class="text-danger"
->Fecha de nacimiento es campo requerido</span
->
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Género</label>
-                                    <select formControlName="genero" [ngClass]="{ 'is-invalid': hasErrors('genero', 'required') }" class="form-control" id="genero">
-      <option value="">- Seleccionar género -</option>
-      <option *ngFor="let genero of generos">{{genero}}</option>
-    </select>
-                                    <span *ngIf="hasErrors('genero', 'required')" class="text-danger">Género es campo requerido</span
-  >     
-  </div>
-</div>
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">Teléfono</label>
-    <input 
-    maxlength="10"
-    formControlName="telefono" [ngClass]="{ 'is-invalid': hasErrors('telefono', 'required') }" 
-    type="number" placeholder="Ingrese su teléfono" 
-    class="form-control" id="telefono" aria-describedby="telefonoHelp" />
-    <span
-  *ngIf="hasErrors('telefono', 'required')"
-  class="text-danger"
-  >Género es campo requerido</span
->
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Correo</label>
-                                    <input formControlName="correo" [ngClass]="{ 'is-invalid': hasErrors('correo', 'required') }" type="email" placeholder="Ingrese su correo electrónico" class="form-control" id="correo" aria-describedby="correoHelp" />
-                                    <span *ngIf="hasErrors('correo', 'required')" class="text-danger">Correo es campo requerido</span
-  >  
-  <span
-  *ngIf="hasErrors('correo', 'email')"
-  class="text-danger"
-  >Formato de correo inválido</span
->
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-left">Nacionalidad</label
-  >
-  <!-- <input
-    formControlName="nacionalidad"
-    [ngClass]="{
-      'is-invalid': hasErrors('nacionalidad', 'required')
-    }"
-    type="text"
-    maxlength="30"
-    placeholder="Ingrese su correo electrónico"
-    class="form-control"
-    id="nacionalidad"
-    aria-describedby="nacionalidadHelp"
-  /> -->
+                      <select
+                        formControlName="nacionalidad"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('nacionalidad', 'required')
+                        }"
+                        class="form-control"
+                        id="nacionalidad"
+                      >
+                        <option value="">- Seleccionar nacionalidad -</option>
+                        <option *ngFor="let nacionalidad of nacionalidades">
+                          {{ nacionalidad }}
+                        </option>
+                      </select>
 
-  <select formControlName="nacionalidad" 
-  [ngClass]="{ 'is-invalid': hasErrors('nacionalidad', 'required') }" class="form-control" id="nacionalidad">
-    <option value="">- Seleccionar nacionalidad -</option>
-    <option *ngFor="let nacionalidad of nacionalidades">{{ nacionalidad }}</option>
-  </select>
+                      <span
+                        *ngIf="hasErrors('nacionalidad', 'required')"
+                        class="text-danger"
+                        >Nacionalidad es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Institución</label
+                      >
+                      <input
+                        formControlName="institucion"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('institucion', 'required')
+                        }"
+                        type="text"
+                        placeholder="Ingrese su Institución"
+                        class="form-control"
+                        id="institucion"
+                        aria-describedby="institucionHelp"
+                      />
+                      <span
+                        *ngIf="hasErrors('institucion', 'required')"
+                        class="text-danger"
+                        >Institución es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Etnia</label
+                      >
+                      <select
+                        formControlName="etnia"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('etnia', 'required')
+                        }"
+                        class="form-control"
+                        id="etnia"
+                      >
+                        <option value="">- Seleccionar etnia -</option>
+                        <option *ngFor="let etnia of etnias">
+                          {{ etnia }}
+                        </option>
+                      </select>
+                      <span
+                        *ngIf="hasErrors('etnia', 'required')"
+                        class="text-danger"
+                        >Etnia es campo requerido</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >¿Posee discapacidad?</label
+                      >
+                      <select
+                        formControlName="discapacidad"
+                        id="discapacidad"
+                        [ngClass]="{
+                          'is-invalid': hasErrors('discapacidad', 'required')
+                        }"
+                        class="form-control"
+                        id="discapacidad"
+                      >
+                        <option value="">- Seleccione -</option>
+                        <option *ngFor="let opcion of opciones">
+                          {{ opcion }}
+                        </option>
+                      </select>
+                      <span
+                        *ngIf="hasErrors('discapacidad', 'required')"
+                        class="text-danger"
+                        >Discapacidad es campo requerido</span
+                      >
+                    </div>
+                  </div>
 
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >¿Desea recibir información?</label
+                      >
+                      <select
+                        formControlName="recibir_informacion"
+                        id="recibir_informacion"
+                        [ngClass]="{
+                          'is-invalid': hasErrors(
+                            'recibir_informacion',
+                            'required'
+                          )
+                        }"
+                        class="form-control"
+                        id="recibir_informacion"
+                      >
+                        <option value="">- Seleccione -</option>
+                        <option *ngFor="let opcion of opciones">
+                          {{ opcion }}
+                        </option>
+                      </select>
+                      <span
+                        *ngIf="hasErrors('recibir_informacion', 'required')"
+                        class="text-danger"
+                        >Campo requerido</span
+                      >
+                    </div>
+                  </div>
 
-  <span
-  *ngIf="hasErrors('nacionalidad', 'required')"
-  class="text-danger"
-  >Nacionalidad es campo requerido</span
->               
-</div>
-</div>
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left"
-      >Institución</label
-    >
-    <input
-      formControlName="institucion"
-      [ngClass]="{
-        'is-invalid':
-          hasErrors('institucion', 'required')
-      }"
-      type="text"
-      placeholder="Ingrese su Institución"
-      class="form-control"
-      id="institucion"
-      aria-describedby="institucionHelp"
-    />
-    <span
-    *ngIf="hasErrors('institucion', 'required')"
-    class="text-danger"
-    >Institución es campo requerido</span
-  >               
-  </div>
-</div>
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">Etnia</label>
-                                    <select formControlName="etnia" [ngClass]="{ 'is-invalid': hasErrors('etnia', 'required') }" class="form-control" id="etnia">
-      <option value="">- Seleccionar etnia -</option>
-      <option *ngFor="let etnia of etnias">{{ etnia }}</option>
-    </select>
-                                    <span *ngIf="hasErrors('etnia', 'required')" class="text-danger">Etnia es campo requerido</span
-  > 
-  </div>
-</div>
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">¿Posee discapacidad?</label>
-                  <select formControlName="discapacidad"  id="discapacidad" 
-                  [ngClass]="{ 'is-invalid': hasErrors('discapacidad', 'required') }" 
-                  class="form-control" 
-                  id="discapacidad">
-      <option value="">- Seleccione -</option>
-      <option *ngFor="let opcion of opciones">{{ opcion }}</option>
-    </select>
-    <span
-    *ngIf="hasErrors('discapacidad', 'required')"
-    class="text-danger"
-    >Discapacidad es campo requerido</span
-  > 
-  </div>
-</div>
+                  <div class="col-lg-6" *ngIf="flag === 'edit'">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="text-left"
+                        >Superusuario</label
+                      >
+                      <select
+                        formControlName="es_superusuario"
+                        id="es_superusuario"
+                        class="form-control"
+                        id="es_superusuario"
+                      >
+                        <option value="">- Seleccione -</option>
+                        <option
+                          *ngFor="let opcion of listaSuperUsuario"
+                          [value]="opcion.key"
+                        >
+                          {{ opcion.value }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-<div class="col-lg-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">¿Desea recibir información?</label>
-                  <select formControlName="recibir_informacion"  id="recibir_informacion" 
-                  [ngClass]="{ 'is-invalid': hasErrors('recibir_informacion', 'required') }" 
-                  class="form-control" id="recibir_informacion">
-      <option value="">- Seleccione -</option>
-      <option *ngFor="let opcion of opciones">{{ opcion }}</option>
-    </select>
-    <span
-    *ngIf="hasErrors('recibir_informacion', 'required')"
-    class="text-danger"
-    >Campo requerido</span
-  > 
-  </div>
-</div>
-
-<div class="col-lg-6" *ngIf="flag ==='edit'">
-  <div class="form-group">
-    <label for="exampleInputEmail1" class="text-left">Superusuario</label>
-                  <select formControlName="es_superusuario"  id="es_superusuario"                   
-                  class="form-control" id="es_superusuario">
-      <option value="">- Seleccione -</option>
-      <option *ngFor="let opcion of listaSuperUsuario" [value]="opcion.key">{{ opcion.value }}</option>
-    </select>
-  </div>
-</div>
-
-</div>
-
-
-<div class="mt-5 row">
-  <div class="col-lg-6">
-    <button
-    *ngIf="flag ==='add'"
-    routerLink=""
-    class="btn btn-secondary btn-block w-100"
-  >
-    Home
-  </button>
-  <button
-  *ngIf="flag ==='edit'"
-  routerLink="/usuarios"
-  class="btn btn-secondary btn-block w-100"
->
-  Volver
-</button>
-  </div>
-  <div class="col-lg-6">
-    <button *ngIf="flag ==='add'" class="btn btn-primary btn-block w-100" type="submit">
-      Registrarse
-    </button>
-    <button *ngIf="flag ==='edit'" class="btn btn-primary btn-block w-100" (click)="editarUsuario($event)">
-      Actualizar
-    </button>
-  </div>
-  </div>
-          </form>
+                <div class="mt-5 row">
+                  <div class="col-lg-6">
+                    <button
+                      *ngIf="flag === 'add'"
+                      routerLink=""
+                      class="btn btn-secondary btn-block w-100"
+                    >
+                      Home
+                    </button>
+                    <button
+                      *ngIf="flag === 'edit'"
+                      routerLink="/usuarios"
+                      class="btn btn-secondary btn-block w-100"
+                    >
+                      Volver
+                    </button>
+                  </div>
+                  <div class="col-lg-6">
+                    <button
+                      *ngIf="flag === 'add'"
+                      class="btn btn-primary btn-block w-100"
+                      type="submit"
+                    >
+                      Registrarse
+                    </button>
+                    <button
+                      *ngIf="flag === 'edit'"
+                      class="btn btn-primary btn-block w-100"
+                      (click)="editarUsuario($event)"
+                    >
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <img
+            src="./assets/img/imagenes/bc.png"
+            class="img-thumbnail"
+          />
         </div>
       </div>
-    </div>
+    
   </div>
-</div>
